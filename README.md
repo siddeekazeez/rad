@@ -1,2 +1,2 @@
 # rad
-RAG Group Assignment
+RAD Group Assignment
