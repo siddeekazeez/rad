@@ -3,11 +3,12 @@ To change this template use Tools | Templates.
 -->
 <!DOCTYPE html>
 <html>
-<head>
-    <title>The Weather App</title>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
-</head>
-<body>
-
-</body>
+    <head>
+        <title>The Weather App</title>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    </head>
+    <body>
+        <h2>{{user}}</h2>
+        <a id="logout" href="{{ user_logout|safe }}">{{url_logout_text}}</a>
+    </body>
 </html>
