@@ -8,7 +8,105 @@ To change this template use Tools | Templates.
         <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     </head>
     <body>
-        <h2>{{user}}</h2>
-        <a id="logout" href="{{ user_logout|safe }}">{{url_logout_text}}</a>
+        <section>
+            <div class="right">
+                <p id="user">Welcome, {{user}}</p>
+                <div class="logout">
+                    <a id="logout" href="{{ user_logout|safe }}">{{ url_logout_text}}</a>
+                </div>
+            </div>
+            <h1 id="City">Weather Web App</h1>
+            <p><a id="Temp"></a><span id="Weather">Temperature</span></p>
+            <br/>            
+        </section>
+        <script>
+            var WeatherInfo = {
+                city: document.querySelector("#City"),
+                weather: document.querySelector("#Weather"),
+                temperature: document.querySelector("#Temp"),
+                TempValue: 0,
+                Units: "°C"
+            };
+            
+            function RoundTemp(Temp){
+			    Temp = +Temp.toFixed(2);
+			    return Temp;
+		    }
+            
+            function getWeatherLocation(){
+                if (window.XMLHttpRequest){
+                    var xhr = new XMLHttpRequest();
+                    
+                    xhr.addEventListener("load", function() {}, false);
+                    xhr.addEventListener("error", function(){}, false);
+                    
+                    xhr.open("GET", "<URL>", true);
+                    xhr.send();
+                }
+                else{
+                    alert("Weather not available at the moment. Please try again later.");
+                }     
+            }
+  
+            function getWeatherLocation(){
+                if (window.XMLHttpRequest){
+                    var xhr = new XMLHttpRequest();
+                    xhr.addEventListener("load", function() {
+                        var response = JSON.parse(xhr.responseText);
+
+                        console.log(response);
+                        var position = {
+                            latitude: response.latitude,
+                            longitude: response.longitude
+                        };
+                        var City = response.city;
+
+                        var SimpleDesc = response.weather.simple;
+                        var Desc = response.weather.description;
+                        var Temp = RoundTemp(response.weather.temperature);
+
+                        WeatherInfo.TempValue = Temp;
+
+                        BackgroundImage(position.latitude, position.longitude, SimpleDesc);
+                        WeatherInfo.city.innerHTML = City;
+                        WeatherInfo.weather.innerHTML =  ", " + Desc;
+                        WeatherInfo.temperature.innerHTML = Temp + WeatherInfo.Units;
+                    }, false);
+
+                    xhr.addEventListener("error", function(err){
+                        alert("Could not complete the request. Please check internet connection");
+                    }, false);
+
+                    xhr.open("GET", "https://fourtonfish.com/tutorials/weather-web-app/getlocationandweather.php?owapikey=36cf733879234f18f99a08c8d9447510&units=metric", true);
+                    xhr.send();
+                }
+                else{
+                    alert("Weather not available at the moment. Please try again later.");
+                }           
+            }
+            
+            function BackgroundImage(Lat, Lon, Tag) {
+                var script_element = document.createElement('script');
+
+                script_element.src = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=930941d12d48f6faad0fa5e1ffdb74e9&lat=" + Lat + "&lon=" + Lon + "&accuracy=1&tags=" + Tag + "&sort=relevance&extras=url_l&format=json";
+
+                document.getElementsByTagName('head')[0].appendChild(script_element);
+            }
+            
+            function jsonFlickrApi(data){
+                if (data.photos.pages > 0){
+                    var photo = data.photos.photo[0];                                  
+                    document.querySelector("body").style.backgroundImage = "url('" + photo.url_l + "')";
+                }
+                else{
+                    document.querySelector("body").style.backgroundImage = "url('http://hdw.datawallpaper.com/nature/weather-in-australia-327509.jpg')";
+                }
+            }
+            
+            getWeatherLocation();
+            
+        
+        
+        </script>
     </body>
 </html>

@@ -14,16 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from google.appengine.api import users
 import webapp2
 import jinja2
 import os
-from google.appengine.api import users
+import time
+from google.appengine.api import mail
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'templates')),
     extensions=['jinja2.ext.autoescape'])
-
-
+    
+    
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -35,11 +37,14 @@ class MainHandler(webapp2.RequestHandler):
                 'user_logout': logout_url,
                 'url_logout_text': 'Log Out',
             }
-            
+
             self.response.write(template.render(template_values))
         else:
             self.redirect(users.create_login_url(self.request.uri))
+            
+    
+            
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
 ], debug=True)
