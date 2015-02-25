@@ -52,6 +52,7 @@ class MainHandler(webapp2.RequestHandler):
         user = users.get_current_user()
         logout_url = users.create_logout_url(self.request.path)
         timet = time.strftime("%I:%M %p")
+        datet = time.strftime("%A, %d %B %Y")
         if user:
             template = JINJA_ENVIRONMENT.get_template('home.html')
             message = mail.EmailMessage()
