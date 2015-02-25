@@ -39,7 +39,7 @@ class MainHandler(webapp2.RequestHandler):
         timet = time.strftime("%I:%M %p")
         datet = time.strftime("%A, %d %B %Y")
         if user:
-            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template = JINJA_ENVIRONMENT.get_template('home2.html')
             message = mail.EmailMessage()
             message.sender = user.email()
             message.to = "abdula17@uni.coventry.ac.uk"
@@ -97,7 +97,7 @@ class TimeSwitch(webapp2.RequestHandler):
         timet = time.strftime("%H:%M")
         datet = time.strftime("%A, %d %B %Y")
         if user:
-            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template = JINJA_ENVIRONMENT.get_template('home2.html')
             message = mail.EmailMessage()
             message.sender = user.email()
             message.to = "abdula17@uni.coventry.ac.uk"
@@ -155,7 +155,7 @@ class DateSwitch(webapp2.RequestHandler):
         timet = time.strftime("%I:%M %p")
         datet = time.strftime("%d/%m/%Y")
         if user:
-            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template = JINJA_ENVIRONMENT.get_template('home2.html')
             message = mail.EmailMessage()
             message.sender = user.email()
             message.to = "abdula17@uni.coventry.ac.uk"
@@ -213,7 +213,7 @@ class DateTimeSwitch(webapp2.RequestHandler):
         timet = time.strftime("%H:%M")
         datet = time.strftime("%d/%m/%Y")
         if user:
-            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template = JINJA_ENVIRONMENT.get_template('home2.html')
             message = mail.EmailMessage()
             message.sender = user.email()
             message.to = "abdula17@uni.coventry.ac.uk"
