@@ -74,6 +74,7 @@ class MainHandler(webapp2.RequestHandler):
                 'user_logout': logout_url,
                 'url_logout_text': 'Log Out',
                 'time': timet,
+                'date': datet,
                 'timelink': '/TimeSwitch',
                 'datelink': '/DateSwitch',
                 'emailmsg': email_message,
@@ -97,6 +98,7 @@ class TimeSwitch(webapp2.RequestHandler):
                 'url_logout': logout_url,
                 'url_logout_text': 'Log out',
                 'time': timet,
+                'date': datet,
                 'timelink': '/',
                 'datelink': '/DateSwitch',
 
@@ -110,7 +112,7 @@ class DateSwitch(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         logout_url = users.create_logout_url(self.request.path)
-        timet = time.strftime("%H:%M")
+        timet = time.strftime("%I:%M %p")
         datet = time.strftime("%d/%m/%Y")
         if user:
             template = JINJA_ENVIRONMENT.get_template('home.html')
@@ -142,6 +144,7 @@ class DateTimeSwitch(webapp2.RequestHandler):
                 'url_logout': logout_url,
                 'url_logout_text': 'Log out',
                 'time': timet,
+                'date': datet,
                 'timelink': '/',
                 'datelink': '/',
 
