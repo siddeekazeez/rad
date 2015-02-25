@@ -12,5 +12,7 @@
         "Current File (static)": "https://{{domain}}/{{filepath}}",
         "Box URL": "http://{{domain}}:3000/",
         "Box URL SSL": "https://{{domain}}:9500/"
+        "Remote": "http://mashup-app.appspot.com/"
+        "Remote Admin": "https://appengine.google.com/dashboard?&app_id=s-mashup-app"
   }
 }
