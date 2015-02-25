@@ -61,3 +61,46 @@ footer{
   float:right;
   margin-right:20px;
 }
+
+#Temp{
+  text-decoration: none;
+  border-bottom: 0.05em dotted white;
+}
+
+.datetime{
+  font-size: 40pt;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-bottom: 0.05em dotted white;
+}
+
+.dt {
+ width:100%; 
+ text-align: center;
+}
+
+textarea {
+  resize: none;   
+}
+
+table {
+  background-color:rgba(0,0,0,0.4);
+  margin-left:10px;
+}
+
+.tb-text {
+  font-size: 11pt;
+  text-align: right;
+}
+
+#tb-head {
+  font-size:14pt;
+  font-weight: bold;
+  text-align: center;
+}
+
+.button {
+  margin-bottom:10px;
+  margin-top:10px;   
+}
