@@ -17,14 +17,27 @@ To change this template use Tools | Templates.
                 </div>
             </div>
             <h1 id="City">Weather Web App</h1>
-            <p><a id="Temp"></a><span id="Weather">Temperature</span></p>
+            <p><a id="Temp" href="#" onclick="UnitSwitch(); return false;" title="Click to switch between celsius and fahrenheit."></a><span id="Weather">Temperature</span></p>
             <br/>
             <form action ="." method="post">
                 <table>
-                    <tr><td><p>Leave a Comment</p></td></tr>
-                    <tr><td> <textarea id="test" name="content" rows="5" cols="32"></textarea></td></tr>
-                    <tr><td><input type="submit" value="Submit Comment" class="button"></td></tr>
-                    <tr><td>{{emailmsg}}</td></tr>
+                    <tr>
+                        <td>
+                            <p>Leave a Comment</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea id="test" name="content" rows="5" cols="32"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Submit Comment" class="button">
+                        </td>
+                    </tr>
+                    <tr><td>
+                        <p><center>{{emailmsg}}</center></p></td></tr>
                 </table>
             </form>
         </section>
@@ -42,6 +55,19 @@ To change this template use Tools | Templates.
 			    return Temp;
 		    }
             
+            function UnitSwitch(){
+                if (WeatherInfo.Units == "°C"){
+                    WeatherInfo.TempValue = RoundTemp(WeatherInfo.TempValue * 9/5 + 32);
+                    WeatherInfo.Units = "°F";
+                }
+                else{
+                    WeatherInfo.TempValue = RoundTemp((WeatherInfo.TempValue -  32) * 5/9);
+                    WeatherInfo.Units = "°C";
+                }
+                
+                WeatherInfo.temperature.innerHTML = WeatherInfo.TempValue + WeatherInfo.Units;      
+            }
+                
             function getWeatherLocation(){
                 if (window.XMLHttpRequest){
                     var xhr = new XMLHttpRequest();
