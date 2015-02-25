@@ -41,6 +41,7 @@ class MainHandler(webapp2.RequestHandler):
                 'time': timet,
                 'date': datet,
                 'timelink': '/TimeSwitch',
+                'datelink': '/DateSwitch',
                 'emailmsg': "",
             }
 
@@ -74,6 +75,7 @@ class MainHandler(webapp2.RequestHandler):
                 'url_logout_text': 'Log Out',
                 'time': timet,
                 'timelink': '/TimeSwitch',
+                'datelink': '/DateSwitch',
                 'emailmsg': email_message,
             }
 
@@ -96,6 +98,7 @@ class TimeSwitch(webapp2.RequestHandler):
                 'url_logout_text': 'Log out',
                 'time': timet,
                 'timelink': '/',
+                'datelink': '/DateSwitch',
 
             }
             self.response.write(template.render(template_values))
@@ -116,6 +119,7 @@ class DateSwitch(webapp2.RequestHandler):
                 'url_logout': logout_url,
                 'url_logout_text': 'Log out',
                 'time': timet,
+                'date': datet,
                 'timelink': '/',
                 'datelink': '/',
 
