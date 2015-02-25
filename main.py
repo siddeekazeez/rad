@@ -101,7 +101,53 @@ class TimeSwitch(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
             
 
+class DateSwitch(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        logout_url = users.create_logout_url(self.request.path)
+        timet = time.strftime("%H:%M")
+        datet = time.strftime("%d/%m/%Y")
+        if user:
+            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template_values = {
+                'user': user.nickname(),
+                'url_logout': logout_url,
+                'url_logout_text': 'Log out',
+                'time': timet,
+                'timelink': '/',
+                'datelink': '/',
+
+            }
+            self.response.write(template.render(template_values))
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
+            
+            
+class DateTimeSwitch(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        logout_url = users.create_logout_url(self.request.path)
+        timet = time.strftime("%H:%M")
+        datet = time.strftime("%d/%m/%Y")
+        if user:
+            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template_values = {
+                'user': user.nickname(),
+                'url_logout': logout_url,
+                'url_logout_text': 'Log out',
+                'time': timet,
+                'timelink': '/',
+                'datelink': '/',
+
+            }
+            self.response.write(template.render(template_values))
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
+            
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/TimeSwitch', TimeSwitch),
+    ('/DateSwitch', DateSwitch),
+    ('/DateTimeSwitch', DateTimeSwitch)
 ], debug=True)
