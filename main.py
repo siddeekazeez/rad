@@ -38,6 +38,7 @@ class MainHandler(webapp2.RequestHandler):
                 'user_logout': logout_url,
                 'url_logout_text': 'Log Out',
                 'time': timet,
+                'timelink': '/TimeSwitch',
             }
 
             self.response.write(template.render(template_values))
@@ -45,8 +46,27 @@ class MainHandler(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
             
     
+class TimeSwitch(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        logout_url = users.create_logout_url(self.request.path)
+        timet = time.strftime("%H:%M")
+        if user:
+            template = JINJA_ENVIRONMENT.get_template('home.html')
+            template_values = {
+                'user': user.nickname(),
+                'url_logout': logout_url,
+                'url_logout_text': 'Log out',
+                'time': timet,
+                'timelink': '/',
+
+            }
+            self.response.write(template.render(template_values))
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
             
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+    ('/TimeSwitch', TimeSwitch),
 ], debug=True)
