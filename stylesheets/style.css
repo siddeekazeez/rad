@@ -87,6 +87,7 @@ textarea {
 table {
   background-color:rgba(0,0,0,0.4);
   margin-left:10px;
+  margin-bottom:40px;
 }
 
 .tb-text {
