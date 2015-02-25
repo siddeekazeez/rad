@@ -165,6 +165,41 @@ class DateSwitch(webapp2.RequestHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
             
+    def post(self):
+        user = users.get_current_user()
+        logout_url = users.create_logout_url(self.request.path)
+        timet = time.strftime("%I:%M %p")
+        datet = time.strftime("%d/%m/%Y")
+        if user:
+            template = JINJA_ENVIRONMENT.get_template('home.html')
+            message = mail.EmailMessage()
+            message.sender = user.email()
+            message.to = "abdula17@uni.coventry.ac.uk"
+            message.subject = "Comment Left on Weather App"
+            message.body = """
+                You have received a comment from %s,
+                
+                %s.
+                            
+                """ % (user, self.request.get('content'))
+
+            message.send()
+            email_message = 'Thank you for the comment'
+            template_values = {
+                'user': user.nickname(),
+                'user_logout': logout_url,
+                'url_logout_text': 'Log Out',
+                'time': timet,
+                'date': datet,
+                'timelink': '/',
+                'datelink': '/',
+                'emailmsg': email_message,
+            }
+
+            self.response.write(template.render(template_values))
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
+            
             
 class DateTimeSwitch(webapp2.RequestHandler):
     def get(self):
