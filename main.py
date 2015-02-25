@@ -31,6 +31,7 @@ class MainHandler(webapp2.RequestHandler):
         user = users.get_current_user()
         logout_url = users.create_logout_url(self.request.path)
         timet = time.strftime("%I:%M %p")
+        datet = time.strftime("%A, %d %B %Y")
         if user:
             template = JINJA_ENVIRONMENT.get_template('home.html')
             template_values = {
@@ -38,6 +39,7 @@ class MainHandler(webapp2.RequestHandler):
                 'user_logout': logout_url,
                 'url_logout_text': 'Log Out',
                 'time': timet,
+                'date': datet,
                 'timelink': '/TimeSwitch',
                 'emailmsg': "",
             }
